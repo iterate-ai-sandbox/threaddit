@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import mixpanel from 'mixpanel-browser';
+import mixpanel from 'mixpanel-browser';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -271,15 +272,7 @@ export function ThreadSearch({ callBackFunc, forPost = false }) {
       ref={searchRef}
     >
       <Svg type="search" className="w-6 h-6" />
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        type="search"
-        name="search"
-        id="search"
-        className="py-0.5 w-48  md:w-full bg-neutral-100 focus:outline-none md:pr-20"
-        placeholder="Find community"
-      />
+      <input value={search} onChange={(e) => { setSearch(e.target.value); mixpanel.track('asda', { search_value: e.target.value }); }} type="search" name="search" id="search" className="py-0.5 w-48 md:w-full bg-neutral-100 focus:outline-none md:pr-20" placeholder="Find community" />
       {queryData.data && search && (
         <ul className="flex absolute right-0 top-full z-50 flex-col p-5 mt-3 space-y-5 w-full list-none bg-white rounded-md border shadow-xl border-y-theme-gray-blue">
           {queryData.data.slice(0, 5).map((subthread) => (

@@ -11,11 +11,12 @@ import Loader from "../../components/Loader";
 import Post from "../../components/Post";
 
 export function FullPost() {
-  useEffect(() => {
-    if (data?.post_info?.title) {
-      mixpanel.track('post_page_opened', { 'post_title': data.post_info.title });
-    }
-  }, [data?.post_info?.title]);
+useEffect(() => {
+  mixpanel.track('asd');
+  if (data?.post_info?.title) {
+    mixpanel.track('post_page_opened', { 'post_title': data.post_info.title });
+  }
+}, [data?.post_info?.title]);
   const queryClient = useQueryClient();
   const { user } = AuthConsumer();
   const { postId } = useParams();
