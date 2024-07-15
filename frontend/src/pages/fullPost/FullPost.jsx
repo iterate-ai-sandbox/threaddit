@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import mixpanel from 'mixpanel-browser';
 import AuthConsumer from "../../components/AuthContext";
 import Comment, { CommentMode } from "../../components/Comment";
 import Loader from "../../components/Loader";
 import Post from "../../components/Post";
-
 export function FullPost() {
   const queryClient = useQueryClient();
   const { user } = AuthConsumer();
@@ -17,16 +17,16 @@ export function FullPost() {
     queryKey: ["post/comment", postId],
     queryFn: async () => await axios.get(`https://elegant-manifestation-production.up.railway.app/api/comments/post/${postId}`).then((res) => res.data),
   });
-  const { mutate } = useMutation({
-    mutationFn: async (data) => {
-      await axios.post(`https://elegant-manifestation-production.up.railway.app/api/comments`, { post_id: postId, content: data }).then((res) => {
-        queryClient.setQueryData({ queryKey: ["post/comment", postId] }, (oldData) => {
-          return { ...oldData, comment_info: [...oldData.comment_info, res.data.new_comment] };
-        });
-        setCommentMode(false);
+  const { mutate } = useMutation({ mutationFn: async (data) => { await axios.post(`https://elegant-manifestation-production.up.railway.app/api/comments`, { post_id: postId, content: data }).then((res) => { queryClient.setQueryData({ queryKey: ["post/comment", postId] }, (oldData) => { return { ...oldData, comment_info: [...oldData.comment_info, res.data.new_comment] }; }); setCommentMode(false); }); }, });
+
+  useEffect(() => {
+    // Ensure data is available before tracking
+    if (data?.post_info) {
+      mixpanel.track('post_page_opened', {
+        post_title: data.post_info.title // Assuming 'title' is the attribute you want to track from 'post_info'
       });
-    },
-  });
+    }
+  }, [data]);
   if (isFetching) {
     return (
       <div className="flex flex-col justify-center items-center w-full h-screen">
