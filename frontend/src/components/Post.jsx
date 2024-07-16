@@ -137,7 +137,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 height="100%"
                 src={post.post_info.media}
                 alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
+<img onClick={() => { mp.track("eight_eighteen", { time: new Date().toISOString(), mediaType: isImage(post?.post_info.media) ? "Image" : "Video" }); onMediaClick("image"); }} loading="lazy" width="auto" height="100%" src={post?.post_info.media} alt="" className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${ !isExpanded && "hover:scale-105" }`} />
                   !isExpanded && "hover:scale-105"
                 }`}
               />
