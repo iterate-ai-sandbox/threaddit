@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
+import mixpanel from 'mixpanel-browser';
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
@@ -126,12 +127,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
+              <img onClick={() => { mixpanel.track('2005hrs', { test: 'test' }); onMediaClick("image"); }}
                 loading="lazy"
                 width="auto"
                 height="100%"
