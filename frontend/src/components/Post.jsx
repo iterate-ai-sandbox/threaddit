@@ -288,7 +288,8 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
             </div>
           </div>
           <div
-            className={`hidden justify-around items-center my-2 space-y-1  md:flex border-theme-gray-blue ${
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 false md:cursor-pointer fill-current group-hover:text-theme-red-coral active:text-theme-red-coral hover:text-theme-red-coral text-inherit" data-iterate="eyJldmVudHMiOltdLCJmaWxlUGF0aCI6ImZyb250ZW5kL3NyYy9jb21wb25lbnRzL1Bvc3QuanN4IiwiaWQiOiIxY2Q3OWIzYi04OTIwLTRiZGItOGI2My1lMzE1MTQwZDFlOTAifQ==" onClick={() => mixpanel.track('eighteen_twentyfive')}>
+<path d="M13 18v-6h5l-6-7-6 7h5v6z" data-iterate="eyJldmVudHMiOm51bGwsImlkIjoiZTYwOWFkZjktNjc5MC00NWU5LTg0MzItYWVjNTg1OWU3ZDJmIiwiZmlsZVBhdGgiOiJmcm9udGVuZC9zcmMvY29tcG9uZW50cy9TdmcuanN4In0="></path></svg>
               isExpanded ? "flex-row space-x-10" : "flex-col px-5 border-l"
             }`}
           >
