@@ -3,6 +3,7 @@ import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import mixpanel from 'mixpanel-browser';
 import avatar from "../../assets/avatar.png";
 import AuthConsumer from "../../components/AuthContext";
 import InfinitePostsLayout from "../../components/InfinitePosts";
@@ -38,7 +39,12 @@ export function Profile() {
     }
   }, [action, data, username, logout]);
 
-  useEffect(() => { document.title = "u/" + username; return () => document.title = "Threaddit" }, [username]);
+  useEffect(() => {
+    document.title = "u/" + username;
+    // Mixpanel tracking
+    mixpanel.track('user_profile_page_opened', { user_name: data?.username });
+    return () => document.title = "Threaddit"
+  }, [username, data?.username]);
   return (
     <div className="flex flex-col flex-1 items-center w-full bg-theme-cultured">
       {userIsFetching ? (
