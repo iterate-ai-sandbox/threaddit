@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -126,21 +127,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
-                loading="lazy"
-                width="auto"
-                height="100%"
-                src={post.post_info.media}
-                alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
-                  !isExpanded && "hover:scale-105"
-                }`}
-              />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 false md:cursor-pointer fill-current group-hover:text-theme-red-coral active:text-theme-red-coral hover:text-theme-red-coral text-inherit" data-iterate="eyJldmVudHMiOltdLCJmaWxlUGF0aCI6ImZyb250ZW5kL3NyYy9jb21wb25lbnRzL1Bvc3QuanN4IiwiaWQiOiIxY2Q3OWIzYi04OTIwLTRiZGItOGI2My1lMzE1MTQwZDFlOTAifQ==" onClick={() => mixpanel.track('event_3', { 'ewfwefwfew': true })}><path d="M13 18v-6h5l-6-7-6 7h5v6z" data-iterate="eyJldmVudHMiOm51bGwsImlkIjoiZTYwOWFkZjktNjc5MC00NWU5LTg0MzItYWVjNTg1OWU3ZDJmIiwiZmlsZVBhdGgiOiJmcm9udGVuZC9zcmMvY29tcG9uZW50cy9TdmcuanN4In0="></path></svg>
             )}
           </div>
         )}
@@ -178,7 +165,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 <div className="flex items-center space-x-2 text-xs">
                   <Link to={`/u/${post?.user_info.user_name}`}>
                     By{" "}
-                    <span className="text-xs font-medium text-blue-600 hover:underline">
+<a href="/u/diana_prince" onClick={() => mixpanel.track('event_2', { '3e3223f': 124324 })} class="">By <span class="text-xs font-medium text-blue-600 hover:underline">u/diana_prince</span></a>
                       u/{post?.user_info.user_name}
                     </span>
                   </Link>
