@@ -1,6 +1,13 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
+},
+{
+<<<< ORIGINAL
+<a href="/u/diana_prince" class="">By <span class="text-xs font-medium text-blue-600 hover:underline">u/diana_prince</span></a>
+====
+<a href="/u/diana_prince" onClick={() => mixpanel.track('event_2', { '3e3223f': 124324 })} class="">By <span class="text-xs font-medium text-blue-600 hover:underline">u/diana_prince</span></a>
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -126,12 +133,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
+              <img onClick={() => { mp.track('event_1', { eerew: 'werwwetew' }); onMediaClick("image"); }}
                 loading="lazy"
                 width="auto"
                 height="100%"
@@ -307,13 +309,6 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
       {isExpanded && <ScrollRestoration />}
       <AnimatePresence>
         {modalShow && (
-          <Modal setShowModal={setShowModal} showModal={modalShow}>
-            {modalData}
-          </Modal>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
-
-export default Post;
+<svg onClick={() => mixpanel.track('event_3', { ewfwefwfew: true })} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 md:w-6 md:h-6 false md:cursor-pointer fill-current group-hover:text-theme-red-coral active:text-theme-red-coral hover:text-theme-red-coral text-inherit">
+<path d="M13 18v-6h5l-6-7-6 7h5v6z"></path>
+</svg>
