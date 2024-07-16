@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -79,12 +80,13 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
     return /(jpg|jpeg|png|webp|avif|gif|svg|image)/.test(url);
   }
   async function handleShare() {
-    return navigator.clipboard
-      .writeText(`${location.host}/post/${post?.post_info.id}`)
-      .then(() => {
-        alert("Copied Post Link to clipboard");
-      })
-      .catch((err) => alert(err));
+      mixpanel.track('eighteen_twentyfive', {});
+      return navigator.clipboard
+          .writeText(`${location.host}/post/${post?.post_info.id}`)
+          .then(() => {
+              alert("Copied Post Link to clipboard");
+          })
+          .catch((err) => alert(err));
   }
   const createdAt = new Date(post?.post_info.created_at);
   return (
