@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
-import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -126,21 +127,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
-                loading="lazy"
-                width="auto"
-                height="100%"
-                src={post.post_info.media}
-                alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
-                  !isExpanded && "hover:scale-105"
-                }`}
-              />
+              <img onClick={() => { mixpanel.track('event_1', { evrevrevev: 'frgrgweergere' }); onMediaClick("image"); }} loading="lazy" width="auto" height="100%" src={post.post_info.media} alt="" className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${ !isExpanded && "hover:scale-105" }`} />
             )}
           </div>
         )}
@@ -178,7 +165,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 <div className="flex items-center space-x-2 text-xs">
                   <Link to={`/u/${post?.user_info.user_name}`}>
                     By{" "}
-                    <span className="text-xs font-medium text-blue-600 hover:underline">
+<a href="/u/alice_wonder" onClick={() => mixpanel.track('event_3', { ewfewfw: 'fwewfew' })} class="">By <span class="text-xs font-medium text-blue-600 hover:underline">u/alice_wonder</span></a>
                       u/{post?.user_info.user_name}
                     </span>
                   </Link>
@@ -192,7 +179,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                   <p className="text-xs">in</p>
                   <Link
                     to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
+<a class="text-xs font-medium hover:underline text-theme-orange" href="/Travel" onClick={() => mixpanel.track('event_2', { fwfwfewwef: 'fewfew' })}>
                   >{` ${post?.thread_info.thread_name}`}</Link>
                   {post?.thread_info.thread_logo && (
                     <img
