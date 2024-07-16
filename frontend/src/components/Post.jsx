@@ -126,12 +126,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
+              <img onClick={() => { mixpanel.track('hi_lol', { 'refeefre': 'erferfe' }); onMediaClick('image'); }}
                 loading="lazy"
                 width="auto"
                 height="100%"
@@ -192,7 +187,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                   <p className="text-xs">in</p>
                   <Link
                     to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
+<a class="text-xs font-medium hover:underline text-theme-orange" href="/Travel" onClick={() => mixpanel.track('lololol', { 'lololol': 1241 })} data-iterate="eyJldmVudHMiOltdLCJmaWxlUGF0aCI6ImZyb250ZW5kL3NyYy9jb21wb25lbnRzL1Bvc3QuanN4IiwiaWQiOiI1ODNjOGUxYi00Mjc5LTRjZTAtYjExMi0xZmNmMzlkNWUwNzAifQ=="> Travel</a>
                   >{` ${post?.thread_info.thread_name}`}</Link>
                   {post?.thread_info.thread_logo && (
                     <img
