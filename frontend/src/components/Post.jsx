@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -190,10 +191,9 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 </div>
                 <div className="flex items-center space-x-2 ">
                   <p className="text-xs">in</p>
-                  <Link
-                    to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
-                  >{` ${post?.thread_info.thread_name}`}</Link>
+                  <Link to={`/${post?.thread_info.thread_name}`} className="text-xs font-medium hover:underline text-theme-orange" onClick={() => mixpanel.track('blog_category_clicked', { blog_category: post?.thread_info.thread_name })}>
+                  {` ${post?.thread_info.thread_name}`}
+                  </Link>
                   {post?.thread_info.thread_logo && (
                     <img
                       src={post?.thread_info.thread_logo}

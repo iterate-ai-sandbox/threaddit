@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 import UpdateUser from "../../components/UpdateUser";
 import { Chat } from "../inbox/Inbox";
 import Loader from "../../components/Loader";
+import mixpanel from 'mixpanel-browser';
 
 export function Profile() {
   const { logout, user } = AuthConsumer();
@@ -38,7 +39,16 @@ export function Profile() {
     }
   }, [action, data, username, logout]);
 
-  useEffect(() => { document.title = "u/" + username; return () => document.title = "Threaddit" }, [username]);
+  useEffect(() => {
+    document.title = "u/" + username;
+    return () => document.title = "Threaddit"
+  }, [username]);
+
+  useEffect(() => {
+    if (data?.username) {
+      mixpanel.track('user_profile_page_opened', { 'user_name': data.username });
+    }
+  }, [data?.username]);
   return (
     <div className="flex flex-col flex-1 items-center w-full bg-theme-cultured">
       {userIsFetching ? (
