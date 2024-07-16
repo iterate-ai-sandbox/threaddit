@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -37,25 +38,21 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
     };
   }, [isExpanded]);
   function onMediaClick(mediaType) {
-    if (post?.post_info.media) {
-      setShowModal(true);
-      if (mediaType === "video") {
-        setModalData(
-          <ReactPlayer playing controls url={post?.post_info.media} />
-        );
-      } else {
-        setModalData(
-          <img
-            className="object-cover w-11/12 max-h-5/6 md:w-max md:max-h-screen"
-            src={post?.post_info.media.replace(
-              "additional_args",
-              "c_auto,g_auto"
-            )}
-            alt=""
-          />
-        );
+      if (post?.post_info.media) {
+          setShowModal(true);
+          if (mediaType === "video") {
+              setModalData(
+                  <ReactPlayer playing controls url={post?.post_info.media} />
+              );
+          } else {
+              setModalData(
+                  <img className="object-cover w-11/12 max-h-5/6 md:w-max md:max-h-screen" src={post?.post_info.media.replace(
+                      "additional_args", "c_auto,g_auto"
+                  )} alt="" />
+              );
+              mixpanel.track('e1', { e1: 'String' }); // Add this line for Mixpanel tracking
+          }
       }
-    }
   }
   function onReplyClick() {
     if (isAuthenticated) {
@@ -176,7 +173,9 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
             <div className="flex justify-between items-center">
               <div className="flex space-x-2 w-full md:w-fit">
                 <div className="flex items-center space-x-2 text-xs">
-                  <Link to={`/u/${post?.user_info.user_name}`}>
+<Link to={`/u/${post?.user_info.user_name}`} onClick={() => mixpanel.track('e3', { 'e3': 'John Doe' })}>
+By <span className="text-xs font-medium text-blue-600 hover:underline">u/{post?.user_info.user_name}</span>
+</Link>
                     By{" "}
                     <span className="text-xs font-medium text-blue-600 hover:underline">
                       u/{post?.user_info.user_name}
@@ -192,7 +191,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                   <p className="text-xs">in</p>
                   <Link
                     to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
+<a class="text-xs font-medium hover:underline text-theme-orange" href="/Books" onClick={() => mixpanel.track('e2', { 'e2': 'e2' })} data-iterate="eyJldmVudHMiOltdLCJmaWxlUGF0aCI6ImZyb250ZW5kL3NyYy9jb21wb25lbnRzL1Bvc3QuanN4IiwiaWQiOiIyNjQ4MzYzZi0zMTE5LTRiNTAtODlhMS04YmI0ODJiZGY0YTUifQ=="> Books</a>
                   >{` ${post?.thread_info.thread_name}`}</Link>
                   {post?.thread_info.thread_logo && (
                     <img
