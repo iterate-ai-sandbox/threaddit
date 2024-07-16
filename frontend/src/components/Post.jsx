@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
-import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -126,12 +127,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
+              <img onClick={() => { mixpanel.track('event_1', { evrevrevev: 'frgrgweergere' }); mp.track("Post Media Clicked", { time: new Date() }); onMediaClick("image"); }}
                 loading="lazy"
                 width="auto"
                 height="100%"
@@ -192,7 +188,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                   <p className="text-xs">in</p>
                   <Link
                     to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
+<a href="/u/alice_wonder" onClick={() => mixpanel.track('event_3', { ewfewfw: 'fwewfew' })} class="">
                   >{` ${post?.thread_info.thread_name}`}</Link>
                   {post?.thread_info.thread_logo && (
                     <img
