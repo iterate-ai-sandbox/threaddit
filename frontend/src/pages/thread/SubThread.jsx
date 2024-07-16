@@ -9,6 +9,7 @@ import ManageMods from "../../components/ManageMods";
 import Modal from "../../components/Modal";
 import { NewThread } from "../../components/NewThread";
 import Loader from "../../components/Loader";
+import mixpanel from 'mixpanel-browser';
 
 export function SubThread() {
   const listRef = useRef();
@@ -23,7 +24,10 @@ export function SubThread() {
       return await axios.get(`https://elegant-manifestation-production.up.railway.app/api/threads/${params.threadName}`).then((res) => res.data);
     },
   });
-  useEffect(() => { document.title = "t/" + params.threadName; return () => { document.title = "Threaddit" } }, [params.threadName]);
+   mixpanel.track('Cooking page opened');
+   return () => {
+     document.title = "Threaddit"
+   }
   const threadData = data?.threadData;
   const { mutate } = useMutation({
     mutationFn: async (has_subscribed) => {
