@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
-import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -137,7 +137,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 height="100%"
                 src={post.post_info.media}
                 alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
+<img onClick={() => { mixpanel.track('Post Media Clicked', { media_type: 'image', media_url: post.post_info.media }); onMediaClick("image"); }} loading="lazy" width="auto" height="100%" src={post.post_info.media} alt="" className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${ !isExpanded && "hover:scale-105" }`} />
                   !isExpanded && "hover:scale-105"
                 }`}
               />
@@ -192,7 +192,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                   <p className="text-xs">in</p>
                   <Link
                     to={`/${post?.thread_info.thread_name}`}
-                    className="text-xs font-medium hover:underline text-theme-orange"
+<a class="text-xs font-medium hover:underline text-theme-orange" href="/Books" onClick={() => mixpanel.track('topic_clicked', { rt: 132435 })}> Books</a>
                   >{` ${post?.thread_info.thread_name}`}</Link>
                   {post?.thread_info.thread_logo && (
                     <img
