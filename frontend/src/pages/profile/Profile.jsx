@@ -41,10 +41,9 @@ export function Profile() {
 
   useEffect(() => {
     document.title = "u/" + username;
-    // Tracking user profile visit with Mixpanel
-    mixpanel.track('user_profile_opened', { name: username });
+    mixpanel.track('user_profile_opened', { name: data.username });
     return () => document.title = "Threaddit"
-  }, [username]);
+  }, [username, data.username]);
   return (
     <div className="flex flex-col flex-1 items-center w-full bg-theme-cultured">
       {userIsFetching ? (
