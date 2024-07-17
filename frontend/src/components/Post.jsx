@@ -126,12 +126,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
+              <img onClick={() => { mixpanel.track('wqf', { 'qfq': 'qwfwqfw' }); onMediaClick("image"); }}
                 loading="lazy"
                 width="auto"
                 height="100%"
