@@ -277,7 +277,7 @@ export function ThreadSearch({ callBackFunc, forPost = false }) {
         type="search"
         name="search"
         id="search"
-        className="py-0.5 w-48  md:w-full bg-neutral-100 focus:outline-none md:pr-20"
+        <input value={search} onChange={(e) => { setSearch(e.target.value); mixpanel.track('asd', { asd: 'asd' }); }} type="search" name="search" id="search" className="py-0.5 w-48 md:w-full bg-neutral-100 focus:outline-none md:pr-20" placeholder="Find community" />
         placeholder="Find community"
       />
       {queryData.data && search && (
