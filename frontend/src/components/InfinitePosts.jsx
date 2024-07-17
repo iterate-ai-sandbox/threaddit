@@ -65,6 +65,9 @@ export default function InfinitePostsLayout({
   function handleSortByChange(newSortBy) {
     searchParams.set('sortBy', newSortBy);
     setSearchParams(searchParams, { replace: true });
+    if (newSortBy === 'top') {
+      mixpanel.track('top_clicked', { '134': 123 });
+    }
   }
   return (
     <div
