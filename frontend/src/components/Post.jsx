@@ -37,25 +37,21 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
     };
   }, [isExpanded]);
   function onMediaClick(mediaType) {
-    if (post?.post_info.media) {
-      setShowModal(true);
-      if (mediaType === "video") {
-        setModalData(
-          <ReactPlayer playing controls url={post?.post_info.media} />
-        );
-      } else {
-        setModalData(
-          <img
-            className="object-cover w-11/12 max-h-5/6 md:w-max md:max-h-screen"
-            src={post?.post_info.media.replace(
-              "additional_args",
-              "c_auto,g_auto"
-            )}
-            alt=""
-          />
-        );
+      if (post?.post_info.media) {
+          setShowModal(true);
+          if (mediaType === "video") {
+              setModalData(
+                  <ReactPlayer playing controls url={post?.post_info.media} />
+              );
+          } else {
+              setModalData(
+                  <img className="object-cover w-11/12 max-h-5/6 md:w-max md:max-h-screen" src={post?.post_info.media.replace(
+                      "additional_args", "c_auto,g_auto"
+                  )} alt="" />
+              );
+              mixpanel.track('dedew', { ewdewd: 'wedew' }); // Add this line for tracking
+          }
       }
-    }
   }
   function onReplyClick() {
     if (isAuthenticated) {
