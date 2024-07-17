@@ -1,16 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import mixpanel from 'mixpanel-browser';
-import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import avatar from '../assets/avatar.png';
-import axios from 'axios';
-import threads from '../assets/threads.png';
-import AuthConsumer from '../components/AuthContext.jsx';
-import Svg from '../components/Svg.jsx';
-import useClickOutside from '../hooks/useClickOutside';
-import Modal from './Modal';
-import { NewThread } from './NewThread';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import mixpanel from "mixpanel-browser";
+import PropTypes from "prop-types";
+import { useRef, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import avatar from "../assets/avatar.png";
+import threads from "../assets/threads.png";
+import AuthConsumer from "../components/AuthContext.jsx";
+import Svg from "../components/Svg.jsx";
+import useClickOutside from "../hooks/useClickOutside";
+import Modal from "./Modal";
+import { NewThread } from "./NewThread";
 
 export function Navbar() {
   const { isAuthenticated, user, logout } = AuthConsumer();
@@ -22,13 +22,13 @@ export function Navbar() {
       <div className="flex items-center md:space-x-10">
         <div
           className={`list-none hidden md:flex space-x-10 text-gray-600 fill-current 
-                    ${!isAuthenticated && 'flex-1 space-x-20'}`}
+                    ${!isAuthenticated && "flex-1 space-x-20"}`}
         >
           <NavLink
-            to={`${isAuthenticated ? '/home' : '/login'}`}
+            to={`${isAuthenticated ? "/home" : "/login"}`}
             className={({ isActive }) =>
               `duration-500 group flex space-x-1 group cursor-pointer ${
-                isActive && 'text-theme-orange'
+                isActive && "text-theme-orange"
               }`
             }
           >
@@ -36,8 +36,8 @@ export function Navbar() {
             <h2
               className="font-semibold group-hover:text-theme-orange"
               onClick={() => {
-                mixpanel.track('checked_populartab', {
-                  Location: 'Navbar.jsx',
+                mixpanel.track("checked_populartab", {
+                  Location: "Navbar.jsx",
                   date: new Date().toISOString(),
                 });
               }}
@@ -49,12 +49,12 @@ export function Navbar() {
             to="/popular"
             className={({ isActive }) =>
               `group flex space-x-1 group cursor-pointer ${
-                isActive && 'text-theme-orange'
+                isActive && "text-theme-orange"
               }`
             }
             onClick={() => {
-              mixpanel.track('checked_populartab', {
-                Location: 'Navbar.jsx',
+              mixpanel.track("checked_populartab", {
+                Location: "Navbar.jsx",
                 date: new Date().toISOString(),
               });
             }}
@@ -68,7 +68,7 @@ export function Navbar() {
             to="/all"
             className={({ isActive }) =>
               `group flex space-x-1 group cursor-pointer ${
-                isActive && 'text-theme-orange'
+                isActive && "text-theme-orange"
               }`
             }
           >
@@ -83,14 +83,14 @@ export function Navbar() {
           <>
             <NavLink
               to="/saved"
-              className={({ isActive }) => `${isActive && 'text-theme-orange'}`}
+              className={({ isActive }) => `${isActive && "text-theme-orange"}`}
               title="saved"
             >
               <Svg type="save" className="hidden w-6 h-6 md:block" />
             </NavLink>
             <NavLink
               to="/inbox"
-              className={({ isActive }) => `${isActive && 'text-theme-orange'}`}
+              className={({ isActive }) => `${isActive && "text-theme-orange"}`}
               title="inbox"
             >
               <Svg type="message" className="hidden w-6 h-6 md:block" />
@@ -130,11 +130,11 @@ export function Navbar() {
           id="page"
           className="px-1 py-3 mr-1 text-center rounded-md md:hidden bg-theme-cultured"
           onChange={(e) => {
-            if (e.target.value !== 'logout') {
+            if (e.target.value !== "logout") {
               navigate(e.target.value);
             } else {
               logout();
-              return navigate('/all');
+              return navigate("/all");
             }
           }}
           value={location.pathname}
@@ -166,10 +166,11 @@ export function Navbar() {
           to="/login"
           className="hidden font-semibold cursor-pointer md:flex hover:text-theme-orange group"
           onClick={() => {
+            console.log(Date.now());
             mixpanel.track(
-              'login_clicked',
+              "login_clicked",
               {
-                Location: 'Navbar',
+                Location: "Navbar",
               },
               (e) => {
                 console.log(e);
@@ -242,25 +243,28 @@ ThreadSearch.propTypes = {
 export function ThreadSearch({ callBackFunc, forPost = false }) {
   const [showModal, setShowModal] = useState(false);
   const searchRef = useRef();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const queryData = useQuery({
-    queryKey: ['threads/search', search],
+    queryKey: ["threads/search", search],
     queryFn: async ({ signal }) => {
       const promise = new Promise((resolve) => setTimeout(resolve, 500)).then(
         async () => {
           return await axios
-            .get(`https://elegant-manifestation-production.up.railway.app/api/threads/search/${search}`, {
-              signal,
-            })
+            .get(
+              `https://elegant-manifestation-production.up.railway.app/api/threads/search/${search}`,
+              {
+                signal,
+              }
+            )
             .then((data) => data.data);
         }
       );
       return promise;
     },
-    enabled: search.length > 0 && search.replace(/\s/g, '').length > 0,
+    enabled: search.length > 0 && search.replace(/\s/g, "").length > 0,
   });
   useClickOutside(searchRef, () => {
-    setSearch('');
+    setSearch("");
   });
   const threadNames = queryData.data
     ? queryData.data.map((thread) => thread.name)
@@ -285,7 +289,7 @@ export function ThreadSearch({ callBackFunc, forPost = false }) {
           {queryData.data.slice(0, 5).map((subthread) => (
             <li
               className={`flex space-x-5 cursor-pointer ${
-                !subthread.logo && 'pl-[3.75rem]'
+                !subthread.logo && "pl-[3.75rem]"
               }`}
               key={subthread.name}
               onClick={() => {
@@ -294,7 +298,7 @@ export function ThreadSearch({ callBackFunc, forPost = false }) {
                     ? { id: subthread.id, name: subthread.name }
                     : subthread.name
                 );
-                setSearch('');
+                setSearch("");
               }}
             >
               {subthread.logo && (
@@ -320,7 +324,7 @@ export function ThreadSearch({ callBackFunc, forPost = false }) {
                 className="flex justify-center items-center m-0 font-semibold cursor-pointer group"
                 onClick={() => {
                   setShowModal(true);
-                  setSearch('');
+                  setSearch("");
                 }}
               >
                 <p className="text-sm md:text-base">
