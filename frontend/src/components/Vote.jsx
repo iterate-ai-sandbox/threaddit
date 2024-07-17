@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import mixpanel from 'mixpanel-browser';
 import axios from "axios";
 import { useState } from "react";
 import useAuthContext from "./AuthContext";
@@ -46,6 +47,7 @@ export default function Vote({ url, intitalVote, initialCount, contentID, type }
       setVoteCount((voteCount) => voteCount + (newVote ? 2 : -2));
     }
     setVote(newVote);
+    mixpanel.track('lol2', { a1: 'a1' });
   }
   return type === "mobile" ? (
     <>
