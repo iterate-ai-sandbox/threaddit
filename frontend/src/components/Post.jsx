@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -126,21 +127,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 style={{ position: "absolute", top: 0, left: 0 }}
               />
             ) : (
-              <img
-                onClick={() => {
-                  mp.track("Post Media Clicked", { time: new Date() });
-
-                  onMediaClick("image");
-                }}
-                loading="lazy"
-                width="auto"
-                height="100%"
-                src={post.post_info.media}
-                alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
-                  !isExpanded && "hover:scale-105"
-                }`}
-              />
+              <img onClick={() => { mixpanel.track('dedew', { ewdewd: 'wedew' }); onMediaClick("image"); }} loading="lazy" width="auto" height="100%" src={post.post_info.media} alt="" className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${ !isExpanded && "hover:scale-105" }`} />
             )}
           </div>
         )}
