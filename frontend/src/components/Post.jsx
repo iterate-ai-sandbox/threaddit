@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -164,10 +165,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 )}
               </div>
             ) : (
-              <Link
-                to={`/post/${post?.post_info.id}`}
-                className="flex flex-col space-y-2 w-full h-full"
-              >
+              <Link to={`/post/${post?.post_info.id}`} onClick={() => trackPostSelected()} className="flex flex-col space-y-2 w-full h-full">
                 <div className="w-full font-semibold text-ellipsis">
                   {post?.post_info.title}
                 </div>

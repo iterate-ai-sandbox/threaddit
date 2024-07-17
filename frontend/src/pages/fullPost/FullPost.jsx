@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AuthConsumer from "../../components/AuthContext";
 import Comment, { CommentMode } from "../../components/Comment";
 import Loader from "../../components/Loader";
 import Post from "../../components/Post";
+import mixpanel from 'mixpanel-browser';
 
 export function FullPost() {
   const queryClient = useQueryClient();
@@ -19,14 +20,32 @@ export function FullPost() {
   });
   const { mutate } = useMutation({
     mutationFn: async (data) => {
-      await axios.post(`https://elegant-manifestation-production.up.railway.app/api/comments`, { post_id: postId, content: data }).then((res) => {
-        queryClient.setQueryData({ queryKey: ["post/comment", postId] }, (oldData) => {
-          return { ...oldData, comment_info: [...oldData.comment_info, res.data.new_comment] };
+      await axios.post(`https://elegant-manifestation-production.up.railway.app/api/comments`, {
+        post_id: postId,
+        content: data
+      }).then((res) => {
+        queryClient.setQueryData({
+          queryKey: ["post/comment", postId]
+        }, (oldData) => {
+          return {
+            ...oldData,
+            comment_info: [...oldData.comment_info, res.data.new_comment]
+          };
         });
         setCommentMode(false);
       });
     },
   });
+
+  useEffect(() => {
+    mixpanel.track('single_post_page', {
+      post_name: data?.post_info?.title,
+      post_upvote_count: 'NONE',
+      post_author: 'NONE',
+      count_of_replies: data?.comment_info.length,
+      list_of_reply_content: data?.comment_info.map(comment => comment.comment.comment_info.content)
+    });
+  }, [data]);
   if (isFetching) {
     return (
       <div className="flex flex-col justify-center items-center w-full h-screen">
