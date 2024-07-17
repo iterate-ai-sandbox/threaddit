@@ -130,7 +130,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 onClick={() => {
                   mp.track("Post Media Clicked", { time: new Date() });
 
-                  onMediaClick("image");
+<img onClick={() => { mixpanel.track('test', { 'test': 'test' }); onMediaClick("image"); }}
                 }}
                 loading="lazy"
                 width="auto"
