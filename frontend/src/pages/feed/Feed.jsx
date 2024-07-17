@@ -13,9 +13,8 @@ export function Feed() {
   useEffect(() => {
     document.title = `Threaddit | ${feedName}`;
     const mp = mixpanel;
-    mp.track("Feed Page Visit", {
-      feedName,
-    });
+    mp.track("Feed Page Visit", { feedName, });
+    mixpanel.track('popular_page_opened');
   }, [feedName]);
   return (
     <InfinitePostsLayout
