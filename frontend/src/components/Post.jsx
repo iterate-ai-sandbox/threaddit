@@ -164,10 +164,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 )}
               </div>
             ) : (
-              <Link
-                to={`/post/${post?.post_info.id}`}
-                className="flex flex-col space-y-2 w-full h-full"
-              >
+              <Link to={`/post/${post?.post_info.id}`} className="flex flex-col space-y-2 w-full h-full" onClick={() => mixpanel.track('post_selected', { post_name: post.post_info.title, post_upvote_count: post.post_info.post_karma, post_comments: post.post_info.comments_count, post_author: post.user_info.user_name, post_category: post.thread_info.thread_name })}>
                 <div className="w-full font-semibold text-ellipsis">
                   {post?.post_info.title}
                 </div>
