@@ -9,6 +9,8 @@ import ManageMods from "../../components/ManageMods";
 import Modal from "../../components/Modal";
 import { NewThread } from "../../components/NewThread";
 import Loader from "../../components/Loader";
+import mixpanel from 'mixpanel-browser';
+import { useEffect } from 'react';
 
 export function SubThread() {
   const listRef = useRef();
@@ -23,7 +25,13 @@ export function SubThread() {
       return await axios.get(`https://elegant-manifestation-production.up.railway.app/api/threads/${params.threadName}`).then((res) => res.data);
     },
   });
-  useEffect(() => { document.title = "t/" + params.threadName; return () => { document.title = "Threaddit" } }, [params.threadName]);
+  useEffect(() => {
+    document.title = "t/" + params.threadName;
+    mixpanel.track('threads_opened', {'top_threads': 'Technology'});
+    return () => {
+      document.title = "Threaddit"
+    }
+  }, [params.threadName]);
   const threadData = data?.threadData;
   const { mutate } = useMutation({
     mutationFn: async (has_subscribed) => {
@@ -135,10 +143,7 @@ export function SubThread() {
         apiQueryKey={threadData?.name}
         linkUrl={`posts/thread/${threadData?.id}`}
         enabled={threadData !== undefined}
-      />
-      <AnimatePresence>{modalData && <Modal setShowModal={setModalData}>{modalData}</Modal>}</AnimatePresence>
-    </div>
-  );
-}
-
-export default SubThread;
+    mixpanel.track('Cooking page opened');
+    return () => {
+      document.title = "Threaddit";
+    };
