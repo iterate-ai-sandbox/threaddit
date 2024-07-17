@@ -9,6 +9,7 @@ import ManageMods from "../../components/ManageMods";
 import Modal from "../../components/Modal";
 import { NewThread } from "../../components/NewThread";
 import Loader from "../../components/Loader";
+import mixpanel from 'mixpanel-browser';
 
 export function SubThread() {
   const listRef = useRef();
@@ -135,10 +136,7 @@ export function SubThread() {
         apiQueryKey={threadData?.name}
         linkUrl={`posts/thread/${threadData?.id}`}
         enabled={threadData !== undefined}
-      />
-      <AnimatePresence>{modalData && <Modal setShowModal={setModalData}>{modalData}</Modal>}</AnimatePresence>
-    </div>
-  );
-}
-
-export default SubThread;
+    mixpanel.track('Cooking page opened');
+    return () => {
+      document.title = "Threaddit";
+    };
