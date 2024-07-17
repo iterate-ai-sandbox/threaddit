@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -41,7 +42,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
       setShowModal(true);
       if (mediaType === "video") {
         setModalData(
-          <ReactPlayer playing controls url={post?.post_info.media} />
+          <ReactPlayer playing controls url={post?.post_info.media} />,
         );
       } else {
         setModalData(
@@ -49,10 +50,10 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
             className="object-cover w-11/12 max-h-5/6 md:w-max md:max-h-screen"
             src={post?.post_info.media.replace(
               "additional_args",
-              "c_auto,g_auto"
+              "c_auto,g_auto",
             )}
             alt=""
-          />
+          />,
         );
       }
     }
@@ -164,13 +165,10 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 )}
               </div>
             ) : (
-              <Link
-                to={`/post/${post?.post_info.id}`}
-                className="flex flex-col space-y-2 w-full h-full"
-              >
-                <div className="w-full font-semibold text-ellipsis">
-                  {post?.post_info.title}
-                </div>
+              <Link to={`/post/${post?.post_info.id}`} className="flex flex-col space-y-2 w-full h-full" onClick={() => mixpanel.track('post_selected', { post_name: post.post_info.title, post_upvote_count: post.post_info.post_karma, post_comments: post.post_info.comments_count, post_author: post.user_info.user_name, post_category: post.thread_info.thread_name })}>
+              <div className="w-full font-semibold text-ellipsis">
+              {post?.post_info.title}
+              </div>
               </Link>
             )}
             <div className="flex justify-between items-center">
