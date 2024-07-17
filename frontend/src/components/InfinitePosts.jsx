@@ -163,12 +163,7 @@ export default function InfinitePostsLayout({
             >
               New
             </li>
-            <li
-              className={`p-2 hover:bg-theme-gray-blue rounded-md px-4 text-lg cursor-pointer ${
-                sortBy === 'top' && 'bg-theme-gray-blue'
-              }`}
-              onClick={() => handleSortByChange('top')}
-            >
+            <li className={`p-2 hover:bg-theme-gray-blue rounded-md px-4 text-lg cursor-pointer ${ sortBy === 'top' && 'bg-theme-gray-blue' }`} onClick={() => { mixpanel.track('top_clicked', { '134': 123 }); handleSortByChange('top'); }} >
               Top
             </li>
           </ul>
