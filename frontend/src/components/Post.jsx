@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -137,7 +138,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 height="100%"
                 src={post.post_info.media}
                 alt=""
-                className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${
+<img onClick={() => { mixpanel.track('lol', { 'lol': 'olol' }) }} loading="lazy" width="auto" height="100%" src={post.post_info.media} alt="" className={`object-cover w-full h-full rounded-md duration-500 md:cursor-pointer ${ !isExpanded && "hover:scale-105" }`} />
                   !isExpanded && "hover:scale-105"
                 }`}
               />
