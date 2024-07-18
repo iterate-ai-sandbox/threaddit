@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import mixpanel from 'mixpanel-browser';
 import ReactPlayer from "react-player";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
@@ -164,13 +165,10 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
                 )}
               </div>
             ) : (
-              <Link
-                to={`/post/${post?.post_info.id}`}
-                className="flex flex-col space-y-2 w-full h-full"
-              >
-                <div className="w-full font-semibold text-ellipsis">
-                  {post?.post_info.title}
-                </div>
+              <Link to={`/post/${post?.post_info.id}`} onClick={() => mixpanel.track('post_selected', { post_name: post.post_info.title, number_of_comments: post.post_info.comments_count })} className="flex flex-col space-y-2 w-full h-full">
+              <div className="w-full font-semibold text-ellipsis">
+              {post?.post_info.title}
+              </div>
               </Link>
             )}
             <div className="flex justify-between items-center">
