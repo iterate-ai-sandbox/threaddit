@@ -1,22 +1,57 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AuthConsumer from "../../components/AuthContext";
 import Comment, { CommentMode } from "../../components/Comment";
 import Loader from "../../components/Loader";
 import Post from "../../components/Post";
-
+import mixpanel from 'mixpanel-browser';
 export function FullPost() {
-  const queryClient = useQueryClient();
-  const { user } = AuthConsumer();
-  const { postId } = useParams();
-  const [commentMode, setCommentMode] = useState(false);
-  const { data, isFetching } = useQuery({
-    queryKey: ["post/comment", postId],
-    queryFn: async () => await axios.get(`https://elegant-manifestation-production.up.railway.app/api/comments/post/${postId}`).then((res) => res.data),
+const queryClient = useQueryClient();
+const { user } = AuthConsumer();
+const { postId } = useParams();
+const [commentMode, setCommentMode] = useState(false);
+const { data, isFetching } = useQuery({
+  queryKey: ["post/comment", postId],
+  queryFn: async () =>
+    await axios
+      .get(
+        `https://elegant-manifestation-production.up.railway.app/api/comments/post/${postId}`
+      )
+      .then((res) => res.data),
+});
+const { mutate } = useMutation({
+  mutationFn: async (data) => {
+    await axios
+      .post(
+        `https://elegant-manifestation-production.up.railway.app/api/comments`,
+        { post_id: postId, content: data }
+      )
+      .then((res) => {
+        queryClient.setQueryData(
+          { queryKey: ["post/comment", postId] },
+          (oldData) => {
+            return {
+              ...oldData,
+              comment_info: [...oldData.comment_info, res.data.new_comment],
+            };
+          }
+        );
+        setCommentMode(false);
+      });
+  },
+});
+
+useEffect(() => {
+  mixpanel.track('single_post_page', {
+    post_category: 'NONE',
+    author: data?.post_info?.author,
+    post_name: some_variable,
+    comment_content: data
   });
+}, [data]);
   const { mutate } = useMutation({
     mutationFn: async (data) => {
       await axios.post(`https://elegant-manifestation-production.up.railway.app/api/comments`, { post_id: postId, content: data }).then((res) => {
