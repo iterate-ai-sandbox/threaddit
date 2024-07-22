@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+import mixpanel from 'mixpanel-browser';
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
@@ -147,7 +148,7 @@ export function Post({ post, isExpanded = false, postIndex, setCommentMode }) {
         <div className="flex flex-col flex-1 p-3 space-y-5 w-full md:space-y-0 md:space-x-4 md:flex-row">
           <div className="flex flex-col space-y-1 w-full md:justify-between">
             {isExpanded ? (
-              <div className="flex flex-col space-y-2 w-full h-full">
+<a onClick={() => { mixpanel.track('post_clicked', { 'number of comments': post?.post_info.comments_count, 'category': post?.thread_info.thread_name, 'author': post?.user_info.user_name }); }} class="flex flex-col space-y-2 w-full h-full" href={`/post/${post?.post_info.id}`}>
                 <div
                   className={`w-full font-semibold text-ellipsis ${
                     post.post_info.content && "border-b-2 pb-2"
