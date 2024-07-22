@@ -1,6 +1,20 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Markdown from "markdown-to-jsx";
 import mixpanel from "mixpanel-browser";
+},
+{
+<<<< ORIGINAL
+<Link to={`/post/${post?.post_info.id}`} className="flex flex-col space-y-2 w-full h-full">
+  <div className="w-full font-semibold text-ellipsis">
+    {post?.post_info.title}
+  </div>
+</Link>
+====
+<Link to={`/post/${post?.post_info.id}`} onClick={() => mixpanel.track('post_click', { 'category of post': post?.thread_info.thread_name, 'author': post?.user_info.user_name })} className="flex flex-col space-y-2 w-full h-full">
+  <div className="w-full font-semibold text-ellipsis">
+    {post?.post_info.title}
+  </div>
+</Link>
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
